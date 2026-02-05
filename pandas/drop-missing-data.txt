@@ -1,0 +1,23 @@
+# 2883. Drop Missing Data
+
+
+# My Soln
+
+import pandas as pd
+
+def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
+    ids_to_drop = students['name'].isna()
+    return students.loc[~ids_to_drop,]
+
+# Tersest Soln
+
+import pandas as pd
+
+def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
+    return students.dropna(subset=['name']) # drops any row with missing data/values
+
+
+# Note
+
+subset parameter is very common. If it isnt columns its probably subset
+

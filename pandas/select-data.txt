@@ -1,0 +1,29 @@
+# 2880. Select Data
+
+
+# My soln
+
+import pandas as pd
+
+def selectData(students: pd.DataFrame) -> pd.DataFrame:
+    return students[students.student_id == 101].drop(columns=["student_id"])
+
+# Best sol'n - loc!
+
+import pandas as pd
+
+def selectData(students: pd.DataFrame) -> pd.DataFrame:
+    return students.loc[students.student_id == 101, ["name", "age"]]
+
+# Notes:
+
+follows relational model:
+
+select X
+from Y
+where Y.Z == a
+
+loc is roughly select
+
+Y.loc[Y.Z == a, X]
+

@@ -1,0 +1,18 @@
+# 2891. Method Chaining
+
+import pandas as pd
+
+def findHeavyAnimals(animals: pd.DataFrame) -> pd.DataFrame:
+    return animals[animals['weight']>100].sort_values(['weight'],ascending=False)[['name']]
+
+# Notes
+
+animals['weight'] > 100 -> boolean series
+
+animals[animals['weight'] > 100] -> dataframe with animals over 100 weight
+
+.sort_values(by, ascending) -> sorts the rows of dataframe on 'by' column with given pattern
+
+[['name']] -> selects the name column from the dataframe as a dataframe
+
+['name'] -> selects the name column from the dataframe as a series

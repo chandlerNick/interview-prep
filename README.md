@@ -25,18 +25,8 @@ Write a short text answering the following:
 - [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/)
 
 
-## Problem List:
-
-Solved:
-- 
-- 
-- 
-
-Revisit:
-- 
-- 
-- 
+## Day Counter:
 
 
-
+0
 

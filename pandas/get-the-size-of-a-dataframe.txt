@@ -1,0 +1,13 @@
+# 2878 Get the Size of a DataFrame
+
+import pandas as pd
+
+def getDataframeSize(players: pd.DataFrame) -> List[int]:
+    return list(players.shape)
+
+# Runtime
+# O(1)
+
+# Space
+# O(1) -> pd arrays are 2D (even in the heirarchical indexing case)
+
