@@ -25,8 +25,12 @@ Write a short text answering the following:
 - [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/)
 
 
+## Revisit Problems
+- 1071
+
+
 ## Day Counter:
 
-
+1
 0
 

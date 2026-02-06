@@ -1,0 +1,79 @@
+# 1071. Greatest Common Divisor of Strings
+
+My original solution:
+
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        # Default -> return ""
+        # focus on the first string, walk over each character, creating substrings and examining membership in the second.
+        gcd = ""
+        current_characters = []
+        shorter = str1 if len(str1) < len(str2) else str2
+        longer = str2 if shorter == str1 else str1
+        
+        for c1 in shorter:
+            # append to current substring
+            current_characters.append(c1)
+            current_substring = "".join(current_characters)
+
+
+            # If the current substring appears, set the gcd
+            if longer.find(current_substring) != -1:
+                gcd = current_substring
+            
+            # Needs to be perfectly concatenatable.
+
+
+        return gcd
+        # Edge case: strings contain no common characters 
+
+# Soln
+
+Find the shorter string among str1 and str2, without loss of generality, let it be str1.
+
+Start with base = str1, and check if both str1 and str2 are made of multiples of base.
+
+	If so, return base.
+	Otherwise, we shall try a shorter string by removing the last character from base.
+
+If we have checked all prefix strings without finding the GCD string, return "".
+
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        len1, len2 = len(str1), len(str2)
+        gcd = ""
+
+        def valid(k):
+            if len1 % k != 0 or len2 % k != 0:
+                return False
+            n1, n2 = len1 // k, len2 // k
+            # define base - first k characters of the shorter string
+            base = str1[:k] if len1 < len2 else str2[:k]
+            return base * n1 == str1 and base * n2 == str2
+
+        for i in range(min(len1, len2), 0, -1):
+            if valid(i):
+                return str1[:i] if len1 < len2 else str2[:i]
+        
+        return gcd
+
+
+Due to problem setup, one can compute the gcd in the following manner:
+
+import math
+
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if str1 + str2 != str2 + str1:
+            return ""
+        
+        g = math.gcd(len(str1), len(str2))
+        return str1[:g]
+
+
+
+Soln 1: 
+
+RT: O(min(m,n)*(m+n))
+Space: O(m + n)
+
