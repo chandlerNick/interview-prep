@@ -1,0 +1,19 @@
+# 1431. Kids with the greatest number of candies
+
+# My soln:
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        most_candies_at_start = max(candies)
+        result = []
+        for candy in candies:
+            if candy + extraCandies >= most_candies_at_start:
+                result.append(True)
+            else:
+                result.append(False)
+        return result
+
+# Analysis:
+# RT -> O(n)
+# Storage -> O(n)
+
+

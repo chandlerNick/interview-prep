@@ -19,7 +19,7 @@ Write a short text answering the following:
 
 ## Links:
 
-- [pandas I](https://leetcode.com/studyplan/introduction-to-pandas/)
+- [pandas I](https://leetcode.com/studyplan/introduction-to-pandas/) DONE
 - [pandas II](https://leetcode.com/studyplan/30-days-of-pandas/)
 - [SQL I](https://leetcode.com/studyplan/top-sql-50/)
 - [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/)
@@ -31,6 +31,8 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+
+2
 1
 0
 
