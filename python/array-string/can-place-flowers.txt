@@ -1,0 +1,36 @@
+# 605. Can Place Flowers
+
+# My soln:
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        # Trivial case
+        if len(flowerbed) == 1:
+            if flowerbed[0] != 1:
+                n -= 1
+                flowerbed[0] = 1
+        
+        # Check beginning and end
+        if flowerbed[0] != 1 and flowerbed[1] != 1:
+            n -= 1
+            flowerbed[0] = 1  # Remember which ones we've planted!
+        
+        if flowerbed[-1] != 1 and flowerbed[-2] != 1:
+            n -= 1
+            flowerbed[-1] = 1
+
+        # Check middle of list (sliding window)
+        for i in range(1, len(flowerbed)-1):
+            if flowerbed[i-1] != 1 and flowerbed[i] != 1 and flowerbed[i+1] != 1:
+                n -= 1
+                flowerbed[i] = 1
+        
+        # Output decision
+        if n <= 0:
+            return True
+        
+        return False
+
+# Analysis
+# RT -> O(n)
+# Space -> O(1) if we count that more than input
+

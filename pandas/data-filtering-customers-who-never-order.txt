@@ -1,0 +1,22 @@
+# 183. Customers who never order
+
+# My sol'n
+
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    non_buyer_ids = set(customers.id.unique()) - set(orders.customerId.unique())
+    non_buyer_names = customers.loc[customers.id.isin(non_buyer_ids), ["name"]]
+    non_buyer_names.columns = ["Customers"]
+    return non_buyer_names
+
+
+# One-liner:
+
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    return customers.loc[~customers.id.isin(orders.customerId.unique()), ["name"]].rename({"name": "Customers"}, axis=1)
+
+
+
