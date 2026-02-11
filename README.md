@@ -31,6 +31,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+4
 3
 2
 1
