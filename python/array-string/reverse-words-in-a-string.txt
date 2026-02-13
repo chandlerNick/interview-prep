@@ -1,0 +1,21 @@
+# 151. Reverse Words in a String
+
+
+# My Soln
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        s = s.strip()
+        words = s.split()
+        words = words[::-1]
+        return " ".join(words)
+
+
+# Runtime:
+# RT -> O(n)
+# Space -> O(n)
+
+Nice.
+
+
+
