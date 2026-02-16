@@ -26,11 +26,12 @@ Write a short text answering the following:
 
 
 ## Revisit Problems
+- 238
 - 1071
-
 
 ## Day Counter:
 
+6
 5
 4
 3
