@@ -1,0 +1,35 @@
+# 334. Increasing Triplet Subsequence
+
+# Naive soln O(n^3) time limit exceeded
+
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        # Naive soln
+        # Iterate over each and search for condition, RT: O(n^3)
+        for i in range(len(nums)):
+            for j in range(i):
+                for k in range(j):
+                    if nums[k] < nums[j] < nums[i]:
+                        return True
+        return False
+
+# Better soln
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        first = second = float("inf")
+        for num in nums:
+            if num <= first:
+                first = num
+            elif num <= second:
+                second = num
+            else:  # exists num_a < num_b < num
+                return True
+        return False
+
+
+# Invariant:
+# first = minimum encountered so far
+# second = minimum value such that num[i] < second, i < index(second)
+
+# finally, if the current num isnt less than (or equal to) first and isnt less than (or equal to) second and second is greater than first, the current num must be greater than second.
+

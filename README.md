@@ -28,9 +28,11 @@ Write a short text answering the following:
 ## Revisit Problems
 - 238
 - 1071
+- 334
 
 ## Day Counter:
 
+7
 6
 5
 4

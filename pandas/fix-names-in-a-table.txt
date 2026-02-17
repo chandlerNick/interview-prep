@@ -1,0 +1,12 @@
+# 1667. Fix Names in a Table
+
+import pandas as pd
+
+def fix_names(users: pd.DataFrame) -> pd.DataFrame:
+    users.name = users.name.apply(lambda x: x[0].upper() + x[1:].lower())
+    return users.sort_values(by="user_id")
+
+
+# Read the question. In the interviews you need to ask for as much info as necessary.
+
+# The method .capitalize() does the function of that lambda -- users.name.str.capitalize()
