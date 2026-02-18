@@ -1,0 +1,52 @@
+# 443. String Compression
+
+# Attempt 1:
+
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        seq_start = 0
+        last_char = ""
+        chars.append("")
+        for i, c in enumerate(chars):
+
+            if last_char == "":  # beginning
+                seq_start = i
+            elif last_char != c:  # New seq
+                num_chars = i - seq_start
+                if num_chars == 1:
+                    pass  # dont mod the array if there's only one
+                elif num_chars == 2:
+                    chars[i-1] = "2"
+                else:  # num_chars > 2 -- mod the array
+                    for j, digit in enumerate(str(num_chars)):
+                        chars[seq_start+1+j] = digit
+                    del chars[(seq_start+len(str(num_chars))+1):seq_start+num_chars]  # remove remainder
+                seq_start = i  # new seq
+            else: # Not a new sequence, keep counting
+                pass
+                
+            # Update the character for the next step
+            last_char = c
+        
+        del chars[-1]
+        return len(chars)
+
+
+# Editorial Soln:
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        i = 0
+        res = 0
+        while i < len(chars):
+            group_length = 1
+            while (i + group_length < len(chars)
+                   and chars[i + group_length] == chars[i]):
+                group_length += 1
+            chars[res] = chars[i]
+            res += 1
+            if group_length > 1:
+                str_repr = str(group_length)
+                chars[res:res+len(str_repr)] = list(str_repr)
+                res += len(str_repr)
+            i += group_length
+        return res

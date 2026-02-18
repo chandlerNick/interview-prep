@@ -1,0 +1,11 @@
+# 1517. Find Users With Valid Emails
+
+
+import pandas as pd
+
+def valid_emails(users: pd.DataFrame) -> pd.DataFrame:
+    valid_mails = users[users.mail.str.match("^[a-zA-Z][a-zA-Z0-9._-]*@leetcode\.com$")]
+    return valid_mails
+
+Review of regex! --> Hint, use state machines to deal with that.
+
