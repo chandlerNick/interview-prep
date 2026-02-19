@@ -33,6 +33,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+9
 8
 7
 6
