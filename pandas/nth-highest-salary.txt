@@ -1,0 +1,15 @@
+# 177. Nth Highest Salary
+
+# My soln
+
+import pandas as pd
+
+def nth_highest_salary(employee: pd.DataFrame, N: int) -> pd.DataFrame:
+    distinct_salaries = sorted(employee.salary.unique())
+    if N > len(distinct_salaries) or N <= 0:
+        return pd.DataFrame({f"getNthHighestSalary({N})": None}, index=[0])
+    return pd.DataFrame({f"getNthHighestSalary({N})": distinct_salaries[-N]}, index=[0])
+
+
+# Terse, works -- kind of a dumb problem since they didn't spec we should do error checking in alg practice.
+
