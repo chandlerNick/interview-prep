@@ -1,0 +1,50 @@
+# 11. Container With Most Water
+
+# Naive Solution O(n^2)
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        # Area = l*w
+        # l = min(height[first], height[second])
+        # w = second - first     
+        area = -float("inf")
+        n = len(height)
+        for i in range(n):
+            for j in range(i, n):
+                current_area = min(height[i], height[j])*(j - i)
+                if current_area > area:
+                    area = current_area
+        return area
+
+# Fast Soln - O(n) -> worst case, we move one pointer to the other side of the array.
+# Intuition:
+# Start pointers at point of most opportunity (both sides of the array)
+# Compute area w/ formula: min(height[right], height[left]) * (right - left)
+# Walk shorter pointer inward to see if there's a better combo -> not gonna gain if we shrink either side...
+# This works due to the greedy nature of the problem.
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        # Area = l*w
+        # l = min(height[first], height[second])
+        # w = second - first     
+        n = len(height)
+        left = 0
+        right = n - 1
+        max_area = min(height[right], height[left])*(right - left)
+
+        # Move shorter line inwards
+        while left < right:
+            # Update max area
+            current_area = min(height[left], height[right]) * (right - left)
+            if current_area > max_area:
+                max_area = current_area
+            
+            # Move shorter pointer inwards
+            if height[left] < height[right]:
+                left += 1
+            else:
+                right -= 1
+
+        return max_area
+

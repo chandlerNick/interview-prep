@@ -1,0 +1,14 @@
+# 176. Second highest Salary
+
+
+import pandas as pd
+
+def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
+    salaries = employee.sort_values(by="salary").salary.unique()
+    if len(salaries) < 2:
+        return pd.DataFrame({"SecondHighestSalary": None}, index=[0])
+    return pd.DataFrame({"SecondHighestSalary": salaries[-2]}, index=[0])
+
+
+
+
