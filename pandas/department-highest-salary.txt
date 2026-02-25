@@ -1,0 +1,12 @@
+# 184. Department Highest Salary
+
+
+def department_highest_salary(employee: pd.DataFrame, department: pd.DataFrame) -> pd.DataFrame:
+    joined_table = employee.merge(department, left_on="departmentId", right_on="id", suffixes=('', '_dept'))
+    joined_table["max_salary"] = joined_table.groupby("departmentId")["salary"].transform("max")
+    result = joined_table[joined_table["salary"] == joined_table["max_salary"]]
+    return result [["name_dept", "name", "salary"]].rename(
+        columns={"name_dept": "Department", "name": "Employee", "Salary": "Salary"}
+    )
+
+

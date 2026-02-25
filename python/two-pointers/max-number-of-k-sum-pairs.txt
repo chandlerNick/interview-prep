@@ -1,0 +1,21 @@
+# 1679. Max Number of K-Sum Pairs
+
+def maxOperations(nums: list[int], k: int) -> int:
+    nums.sort()
+    l, r = 0, len(nums) - 1
+    ops = 0
+    while l < r:
+        curr = nums[l] + nums[r]
+        if curr == k:
+            ops += 1
+            l += 1
+            r -= 1
+        elif curr < k:
+            l += 1
+        else:
+            r -= 1
+    return ops
+
+# RT -> O(nlgn)
+# Space -> O(1)
+

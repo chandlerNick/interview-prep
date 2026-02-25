@@ -1,0 +1,45 @@
+# 643. Maximum Average Subarray I
+
+# Naive - O(n^2)
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        bottom = 0
+        top = k
+        n = len(nums)
+        max_avg = -float("inf")
+
+        if n == 1:
+            return nums[0]
+
+        while top <= n:
+            curr_avg = sum(nums[bottom:top]) / k
+            if curr_avg > max_avg:
+                max_avg = curr_avg
+            bottom += 1
+            top += 1
+        return max_avg
+
+
+
+# O(k)
+
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        # initialize with first window
+        curr_sum = sum(nums[:k])
+        max_sum = curr_sum
+
+        # Slide the window across the array
+        for i in range(k, len(nums)):
+            curr_sum += nums[i] - nums[i - k]
+            if curr_sum > max_sum:
+                max_sum = curr_sum
+        
+        return max_sum / k
+
+
+Basically, iterate through k to end and keep track of the sum as you go. --> add the next and subtract the previous element.
+
+You weren't terribly far off. I think we'll just go through the neetcode 150 after these are done and studied.
+

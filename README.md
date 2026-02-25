@@ -31,9 +31,14 @@ Write a short text answering the following:
 - 334
 - 443
 - 11
+- 1679
+- 643
+
 
 ## Day Counter:
 
+13
+12
 11
 10
 9
