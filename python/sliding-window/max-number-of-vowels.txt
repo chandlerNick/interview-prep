@@ -1,0 +1,32 @@
+# 1456. Maximum Number of Vowels in a Substring of Given Length
+
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        vowels = ["a", "e", "i", "o", "u"]
+        n = len(s)
+        max_vowels = 0
+        curr = 0
+
+        # Initial count
+        for i in range(k):
+            if s[i] in vowels:
+                curr += 1
+        
+        # Initial vowel ct
+        max_vowels = curr
+
+        # Count remainder
+        for i in range(k, n):
+            # Each step, decrement curr if the previous was a vowel, increment if the next is a vowel. 
+            if s[i] in vowels:
+                curr += 1
+            if s[i-k] in vowels:
+                curr -= 1
+            
+            # If curr (after update) > max_vowels -> update max vowels
+            if curr > max_vowels:
+                max_vowels = curr
+        return max_vowels
+
+RT O(n) -> Goes over once
+Space O(1) -> No additional space
