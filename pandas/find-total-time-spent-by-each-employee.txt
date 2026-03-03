@@ -1,0 +1,12 @@
+# 1741. Find Total Time Spent by Each EMployee
+
+
+import pandas as pd
+
+def total_time(employees: pd.DataFrame) -> pd.DataFrame:
+    employees["time_diff"] = employees.out_time - employees.in_time
+    employees.drop(columns=["in_time", "out_time"], inplace=True)
+    employees_aggd = employees.groupby(by=["emp_id", "event_day"],as_index=False).aggregate(func='sum')
+    employees_aggd.columns = ["emp_id", "day", "total_time"]
+    return employees_aggd
+
