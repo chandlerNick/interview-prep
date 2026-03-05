@@ -1,0 +1,16 @@
+# 1207. Unique Number of Occurrences
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        ocs: dict = {}
+        for num in arr:
+            num = str(num)
+            if num not in ocs.keys():
+                ocs[num] = 1
+            else:
+                ocs[str(num)] += 1
+        if len(set(ocs.values())) != len(ocs.values()):
+            return False
+        return True
+
+O(n)
