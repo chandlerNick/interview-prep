@@ -1,0 +1,11 @@
+# 2215. Find the Difference of Two Arrays
+
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        answer = [None, None]
+        answer[0] = list(set(nums1) - set(nums2))
+        answer[1] = list(set(nums2) - set(nums1))
+        return answer
+
+# Runtime O(n + m) average case due to hash map underlying the set O(nm) worst case
+# Space: O(n + m)

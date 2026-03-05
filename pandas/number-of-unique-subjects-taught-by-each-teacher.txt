@@ -1,0 +1,10 @@
+# 2356. Number of Unique Subjects Taught by Each Teacher
+
+
+import pandas as pd
+
+def count_unique_subjects(teacher: pd.DataFrame) -> pd.DataFrame:
+    teacher = teacher.drop(columns=["dept_id"]).drop_duplicates().groupby(by="teacher_id", as_index=False).size()
+    teacher.columns = ["teacher_id", "cnt"]
+    return teacher
+

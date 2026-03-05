@@ -38,6 +38,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+19
 18
 17
 16
