@@ -1,0 +1,47 @@
+# 1657. Determine if Two Strings Are Close
+
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1) != len(word2):
+            return False
+        
+        # create dicts of each letter, if keys aren't equivalent, it won't work.
+        w1: dict = {}
+        w2: dict = {}
+        for c in word1:
+            if c in w1.keys():
+                w1[c] += 1
+            else:
+                w1[c] = 1
+        
+        for c in word2:
+            if c in w2.keys():
+                w2[c] += 1
+            else:
+                w2[c] = 1
+        
+        if w1.keys() != w2.keys():
+            return False
+        
+        if sorted(w1.values()) != sorted(w2.values()):
+            return False
+
+        return True
+
+O(n)
+
+## "optimalsoln"
+
+from collections import Counter
+
+class Solution:
+	def closeStrings(self, word1: str, word2: str) -> bool:
+		if len(word1) != len(word2):
+			return False
+		
+		c1, c2 = Counter(word1), Counter(word2)
+		if c1.keys() != c2.keys():
+			return False
+		return sorted(c1.values()) == sorted(c2.values())
+
+

@@ -1,0 +1,8 @@
+# 596. Classes With at Least 5 Students
+
+import pandas as pd
+
+def find_classes(courses: pd.DataFrame) -> pd.DataFrame:
+    counts = courses.groupby(by="class", as_index=False).count()
+    return counts[counts.student >= 5][["class"]]
+
