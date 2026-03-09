@@ -1,0 +1,17 @@
+# 586. Customer Placing the Largest Number of Orders
+
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    orders = orders.groupby(by = "customer_number", as_index = False).count()
+    max_orders = orders.order_number.max()
+    return orders[orders.order_number == max_orders][["customer_number"]]
+
+# Terser:
+
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    
+    return orders[['customer_number']].mode()
+

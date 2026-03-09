@@ -1,0 +1,39 @@
+# 2352. Equal Row and Column Pairs
+
+import numpy as np
+
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        num_equal = 0
+        grid = np.array(grid)
+
+        for i in range(n):
+            for j in range(n):
+                if np.array_equal(grid[i, :], grid[:, j]):
+                    num_equal += 1
+
+        return num_equal
+
+
+# RT -> O(n^3)
+# Space -> O(n^2)
+
+
+## Algorithms Soln:
+
+from collections import Counter
+
+class Solution:
+	def equalPairs(self, grid: List[List[int]]) -> int:
+		n = len(grid)
+		cnt_r = Counter(tuple(row) for row in grid)
+		cnt_c = Counter(zip(*grid))  # expand rows and zip elts to tuples
+		
+		return sum(cnt_r[k] * cnt_c[k] for k in cnt_rows)
+
+# RT -> O(n^2)
+# Space -> O(n^2)
+		
+		
+
