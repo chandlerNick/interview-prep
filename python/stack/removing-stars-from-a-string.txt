@@ -1,0 +1,36 @@
+# 2390. Removing Stars From a String
+
+class Solution:
+    def removeStars(self, s: str) -> str:
+        # create stack - try list
+        stack = []
+        # iterate through string, add chars to stack until we reach *
+        for c in s:
+            stack.append(c)
+            if c == "*":  # Upon *, pop * and the other character
+                stack.pop(-1)
+                stack.pop(-1)
+        
+        return "".join(stack)  # make stack string and return
+
+# RT -> O(n)
+# Space -> O(n)
+
+
+# Same O-Complexity, smaller constant
+
+class Solution:
+    def removeStars(self, s: str) -> str:
+        # create stack - try list
+        stack = []
+        # iterate through string, add chars to stack until we reach *
+        for c in s:
+            if c == "*":
+                stack.pop()
+            else:
+                stack.append(c)
+        return "".join(stack)  # make stack string and return
+
+# RT -> O(n)
+# Space -> O(n)
+

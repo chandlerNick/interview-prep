@@ -38,6 +38,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+22
 21
 20
 19
