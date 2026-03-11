@@ -1,0 +1,23 @@
+# 735. Asteroid Collision
+
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+
+        for a in asteroids:
+            while stack and a < 0 < stack[-1]:
+                if stack[-1] < abs(a):
+                    stack.pop()
+                    continue  # current a survived
+                elif stack[-1] == abs(a):
+                    stack.pop()
+                    break  # both destroyed, do not append a
+                else:  # stack[-1] > abs(a)
+                    break  # a is destroyed, do not append
+            else:  # python else of while loop
+                stack.append(a)
+
+        return stack
+
+# Runtime -> O(n) amortized analysis: each asteroid is pushed/popped at most once
+# Space -> O(n) Stack grows to at most size n
