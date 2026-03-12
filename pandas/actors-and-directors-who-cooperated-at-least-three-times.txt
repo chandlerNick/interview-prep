@@ -1,0 +1,9 @@
+# 1050. Actors and Directors Who Cooperated At Least Three Times
+
+import pandas as pd
+
+def actors_and_directors(actor_director: pd.DataFrame) -> pd.DataFrame:
+    counts = actor_director.groupby(by=["actor_id", "director_id"], as_index=False).count()
+    counts = counts[counts.timestamp >= 3].drop(columns=["timestamp"])
+    return counts
+

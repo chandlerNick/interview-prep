@@ -1,0 +1,52 @@
+# 394. Decode String
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []  # (prev str, rep count)
+        curr_str = ""
+        curr_num = 0
+
+        for char in s:
+            if char.isdigit():
+                curr_num = curr_num * 10 + int(char)
+            elif char =='[':  # Start a new string, push to stack
+                stack.append((curr_str, curr_num))
+                curr_str, curr_num = "", 0
+            elif char == ']':  # Pop context and build the string
+                prev_str, num = stack.pop()
+                curr_str = prev_str + (num * curr_str)
+            else:
+                curr_str += char
+        
+        return curr_str
+
+# RT -> O(m) (decoded string len)
+# Space -> O(n + m) (stack + output space)
+
+# Recursive
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        # Use an iterator to maintain state across recursive calls
+        it = iter(s)
+        
+        def decode():
+            res = ""
+            k = 0
+            
+            for char in it:
+                if char.isdigit():
+                    k = k * 10 + int(char)
+                elif char == '[':
+                    # Enter sub-problem
+                    inner_str = decode()
+                    res += k * inner_str
+                    k = 0 # Reset multiplier for the next sibling
+                elif char == ']':
+                    # Exit sub-problem
+                    return res
+                else:
+                    res += char
+            return res
+
+        return decode()
