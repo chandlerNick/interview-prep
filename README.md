@@ -36,9 +36,12 @@ Write a short text answering the following:
 - 1004
 - 1493
 - 394
+- 1280
+- 649
 
 ## Day Counter:
 
+26
 25
 24
 23

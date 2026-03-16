@@ -1,0 +1,22 @@
+# 1280. Students and Examinations
+
+
+import pandas as pd
+
+def students_and_examinations(students: pd.DataFrame, subjects: pd.DataFrame, examinations: pd.DataFrame) -> pd.DataFrame:
+    # 1. Get every student-subject combo
+    base = students.merge(subjects, how="cross")
+
+    # 2. Count occurrences in examinations
+    counts = examinations.groupby(['student_id', 'subject_name']).size().reset_index(name="attended_exams")
+
+    # 3. Left Join base with counts on BOTH id and subject
+    result = base.merge(counts, on=["student_id", "subject_name"], how="left")
+
+    # 4. Coalesce NaNs to 0 and sort as required
+    result['attended_exams'] = result["attended_exams"].fillna(0).astype(int)
+
+    return result.sort_values(['student_id', 'subject_name'])
+
+
+
