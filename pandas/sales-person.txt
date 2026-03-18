@@ -1,0 +1,21 @@
+# 607. Sales Person
+
+import pandas as pd
+
+def sales_person(sales_person: pd.DataFrame, company: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    merged = sales_person.merge(orders, on="sales_id", how="left")
+    merged = merged.merge(company, on="com_id", how="left")[["name_x", "name_y"]]
+    merged = merged.groupby('name_x', as_index=False).filter(lambda x: ~x['name_y'].isin(['RED']).any())[['name_x']].drop_duplicates()
+    merged.columns = ["name"]
+    return merged
+
+
+# Faster:
+
+def sales_person(sales_person: pd.DataFrame, company: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    
+    red_id = company[company['name'] == 'RED']['com_id']
+    valid_id = orders[orders['com_id'].isin(red_id)]['sales_id']
+    result = sales_person[~sales_person['sales_id'].isin(valid_id)]
+    return result[['name']]
+

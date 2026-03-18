@@ -20,10 +20,10 @@ Write a short text answering the following:
 ## Links:
 
 - [pandas I](https://leetcode.com/studyplan/introduction-to-pandas/) DONE
-- [pandas II](https://leetcode.com/studyplan/30-days-of-pandas/)
+- [pandas II](https://leetcode.com/studyplan/30-days-of-pandas/) DONE
 - [SQL I](https://leetcode.com/studyplan/top-sql-50/)
 - [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/)
-
+- [DS-Interview](https://datalemur.com/questions)
 
 ## Revisit Problems:
 - 238
@@ -38,9 +38,11 @@ Write a short text answering the following:
 - 394
 - 1280
 - 649
+- 328
 
 ## Day Counter:
 
+28
 27
 26
 25
