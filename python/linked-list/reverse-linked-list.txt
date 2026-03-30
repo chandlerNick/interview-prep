@@ -1,0 +1,52 @@
+# 206. Reverse Linked List
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None:
+            return None
+        
+        node = head
+        next_node = None
+
+        # In the event that the list is longer than length 1 -- iterate over
+        while node.next != None:
+            # Create node with new value.
+            new_node = ListNode(val = node.val, next = next_node)
+
+            # set pointer for next node
+            next_node = new_node
+
+            # walk the list
+            node = node.next
+        
+        # Deal with the last value / length 1 case
+        new_head = ListNode(val = node.val, next = next_node)
+
+        return new_head
+
+
+# RT -> O(n)
+# Space -> O(n) - we create a new list
+
+### Optimal soln (space reduction)
+
+class Solution:
+	def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+		prev = None
+		curr = head
+		
+		while curr:
+			next_temp = curr.next  # 1. Save the next node
+			curr.next = prev       # 2. Reverse the pointer
+			prev = curr            # 3. Move the prev forward
+			curr = next_temp       # 4. Move curr forward
+		return prev
+
+
+
+
