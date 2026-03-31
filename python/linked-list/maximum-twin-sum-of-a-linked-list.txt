@@ -1,0 +1,94 @@
+# 2130. Maximum Twin Sum of a Linked List
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        curr = head
+        
+        while curr:
+            next_temp = curr.next  # 1. Save the next node
+            curr.next = prev       # 2. Reverse the pointer
+            prev = curr            # 3. Move prev forward
+            curr = next_temp       # 4. Move curr forward
+            
+        return prev
+
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        max_sum = 0
+        node = head
+
+        # Get length of list
+        list_len = 1
+        while node.next != None:
+            node = node.next
+            list_len += 1
+
+        # Reverse list after halfway
+        half = list_len // 2 - 1
+        list_len = 0
+        node = head
+        while list_len < half:
+            node = node.next
+            list_len += 1
+
+        node.next = self.reverseList(node.next)
+        node = node.next
+
+        # Find maximum twin sum
+        head_ptr = head
+        while node.next != None:
+            twin_sum = head_ptr.val + node.val
+            if twin_sum > max_sum:
+                max_sum = twin_sum
+
+            # Update pointers
+            head_ptr = head_ptr.next
+            node = node.next
+        
+        # Check last node
+        twin_sum = head_ptr.val + node.val
+        if twin_sum > max_sum:
+            max_sum = twin_sum
+
+        return max_sum
+
+
+# RT -> O(n)
+# Space -> O(1)
+
+
+# Terser solution
+
+def pairSum(self, head: Optional[ListNode]) -> int:
+    # Step 1: Find the middle
+    slow, fast = head, head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+    
+    # Step 2: Reverse second half in-place
+    prev = None
+    curr = slow
+    while curr:
+        nxt = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nxt
+    
+    # Step 3: Compare twins
+    # 'prev' is now the head of the reversed second half
+    max_val = 0
+    first_half, second_half = head, prev
+    while second_half:
+        max_val = max(max_val, first_half.val + second_half.val)
+        first_half = first_half.next
+        second_half = second_half.next
+        
+    return max_val
+
+

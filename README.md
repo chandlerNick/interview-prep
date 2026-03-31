@@ -42,6 +42,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+30
 29
 28
 27
