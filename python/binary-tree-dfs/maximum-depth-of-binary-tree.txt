@@ -1,0 +1,46 @@
+# 104. Maximum Depth of Binary Tree
+
+# Recursive solution
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+        if root.left is None and root.right is None:  # At a leaf
+            return 1
+        
+        max_l = self.maxDepth(root.left)
+        max_r = self.maxDepth(root.right)
+
+        if max_r > max_l:
+            return max_r + 1  # depth of following nodes and this one
+        else:
+            return max_l + 1
+
+RT -> O(n)  Each node is visited once.
+Space -> O(h) Height of tree is h, this comes from the recursion stack.
+
+Above is asymptotically optimal but an iterative soln may trim the constant
+
+class Solution:
+	def maxDepth(self, root: Optional[TreeNode]) -> int:
+		stack = [[root, 1]]
+		res = 0
+
+		while stack:
+			node, depth = stack.pop()
+			if node:
+				res = max(res, depth)
+				stack.append([node.left, depth + 1])
+				stack.append([node.right, depth + 1])
+
+		return res
+
+
+
