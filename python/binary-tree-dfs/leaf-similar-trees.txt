@@ -1,0 +1,49 @@
+# 872. Leaf-Similar Trees
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def iit(self, tree: Optional[TreeNode]) -> List[int]:
+        # if tree is none, return null
+        if tree is None:
+            return [-1]
+        # if leaf, return value
+        if tree.left is None and tree.right is None:
+            return [tree.val]
+        # otherwise, iit
+
+        return self.iit(tree.left) + self.iit(tree.right)
+
+
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        r1l = [i for i in self.iit(root1) if i != -1]
+        r2l = [i for i in self.iit(root2) if i != -1]
+
+        if r1l == r2l:
+            return True
+        else:
+            return False
+
+# RT -> O(n^2)  each node is visited once
+# Space -> O(n) each node is stored
+
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def get_leaves(node):
+            if node:
+                if not node.left and not node.right:
+                    yield node.val
+                yield from get_leaves(node.left)
+                yield from get_leaves(node.right)
+        
+        # compare sequences lazily
+        return list(get_leaves(root1)) == list(get_leaves(root2))
+
+# RT -> O(N + M)
+# Space -> O(H1 + H2)
+
+
