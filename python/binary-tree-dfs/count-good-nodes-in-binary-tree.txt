@@ -1,0 +1,53 @@
+# 1448. Count Good Nodes in Binary Tree
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def dfs(self, root: TreeNode, lastMax:int) -> int:        
+        if root:
+            if root.left is None and root.right is None:  # at leaf -> return
+                if root.val >= lastMax:
+                    return 1
+                else:
+                    return 0
+            else:
+                if root.val >= lastMax:
+                    return self.dfs(root.left, root.val) + self.dfs(root.right, root.val) + 1
+                else:
+                    return self.dfs(root.left, lastMax) + self.dfs(root.right, lastMax)
+        else:
+            return 0
+
+
+
+    def goodNodes(self, root: TreeNode) -> int:
+        if root is None: 
+            return 0
+        if root.left is None and root.right is None:
+            return 1
+        
+        return self.dfs(root, root.val)
+
+# RT -> O(n)
+# Space -> O(h)
+
+# Terser
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        def dfs(node, max_so_far):
+            if not node:
+                return 0
+            
+            # A node is "good" if its value is >= max value on path from root
+            is_good = 1 if node.val >= max_so_far else 0
+            new_max = max(max_so_far, node.val)
+            
+            return is_good + dfs(node.left, new_max) + dfs(node.right, new_max)
+        
+        return dfs(root, float('-inf'))
+
