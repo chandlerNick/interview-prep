@@ -1,0 +1,39 @@
+# 437. Path Sum 3
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        # map stores: {prefix_sum: frequency}
+        lookup = {0: 1}
+
+        def dfs(node, curr_sum):
+            if not node:
+                return 0
+            
+            curr_sum += node.val
+
+            # Check if a sub path ends here
+            count = lookup.get(curr_sum - targetSum, 0)
+
+            # Update map for child nodes
+            lookup[curr_sum] = lookup.get(curr_sum, 0) + 1
+
+            # Recurse
+            count += dfs(node.left, curr_sum)
+            count += dfs(node.right, curr_sum)
+
+            # backtrack: remove curr_sum so it's not used by siblings
+            lookup[curr_sum] -= 1
+
+            return count
+        
+        return dfs(root, 0)
+
+# RT -> O(n)
+# Space -> O(n)
+
