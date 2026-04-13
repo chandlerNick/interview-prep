@@ -41,9 +41,12 @@ Write a short text answering the following:
 - 328
 - 437
 - 1372
+- 199
+- 197
 
 ## Day Counter:
 
+37
 36
 35
 34
