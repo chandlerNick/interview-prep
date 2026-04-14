@@ -1,0 +1,28 @@
+# 1161. Maximum Level Sum of a Binary Tree
+
+from collections import deque
+
+class Solution:
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        max_sum = -float('inf')
+        max_lvl = 0
+        if not root: return max_lvl
+
+        queue = deque([root])
+        level_num = 0
+        while queue:
+            level_size = len(queue)
+            curr_sum = 0
+            level_num += 1
+            for i in range(level_size):
+                node = queue.popleft()
+                curr_sum += node.val
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+
+            if curr_sum > max_sum:
+                max_sum = curr_sum
+                max_lvl = level_num
+
+        return max_lvl            
+
