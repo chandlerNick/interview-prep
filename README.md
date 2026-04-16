@@ -46,6 +46,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+40
 39
 38
 37

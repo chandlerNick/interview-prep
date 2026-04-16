@@ -1,0 +1,47 @@
+# 450. Delete Node in a BST
+
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        curr, parent = root, None
+        
+        # 1. Locate the node and its parent
+        while curr and curr.val != key:
+            parent = curr
+            curr = curr.left if key < curr.val else curr.right
+            
+        if not curr: return root  # Key not found
+        
+        # 2. Handle deletion based on children count
+        # Case: Node has 0 or 1 child
+        if not curr.left or not curr.right:
+            new_child = curr.left if curr.left else curr.right
+            if not parent:
+                return new_child
+            if parent.left == curr:
+                parent.left = new_child
+            else:
+                parent.right = new_child
+                
+        # Case: Node has 2 children
+        else:
+            # Find in-order successor (smallest in right subtree)
+            successor_parent = curr
+            successor = curr.right
+            while successor.left:
+                successor_parent = successor
+                successor = successor.left
+            
+            # Replace current value with successor's value
+            curr.val = successor.val
+            
+            # Delete the successor node
+            if successor_parent.left == successor:
+                successor_parent.left = successor.right
+            else:
+                successor_parent.right = successor.right
+                
+        return root
+
+# RT -> O(h)
+# Space -> O(1)
+
