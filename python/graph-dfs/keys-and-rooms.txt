@@ -1,0 +1,26 @@
+# 841. Keys and Rooms
+
+class Solution:
+    def dfs(self, adj, u, visited):
+        # Mark node as visited
+        visited[u] = True
+        print(u, end=" ")
+
+        # Explore all neighbors
+        for v in adj[u]:
+            if not visited[v]:
+                self.dfs(adj, v, visited)
+        if all(visited):
+            return True
+    
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        n = len(rooms)
+        visited = [False] * n
+
+        if self.dfs(rooms, 0, visited):
+            return True
+        
+        return False
+
+O(V+E)
+
