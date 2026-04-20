@@ -1,0 +1,27 @@
+# 574. Number of Provinces 
+
+class Solution:
+    def DFSUtil(self, v, visited, graph):
+
+        # Mark the current node as visited
+        visited[v] = True
+
+        # Iterate over indices to identify neighbor nodes
+        for neighbor_idx in range(len(graph[v])):
+            if graph[v][neighbor_idx] == 1 and not visited[neighbor_idx]:
+                self.DFSUtil(neighbor_idx, visited, graph)
+
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        count = 0
+        visited = [False for _ in range(len(isConnected))]
+
+        for v in range(len(visited)):
+            if visited[v] == False:
+                self.DFSUtil(v, visited, isConnected)
+                count += 1
+        return count
+
+
+RT -> O(N^2) - adjacency graph
+Space -> O(N) - visited list
+
