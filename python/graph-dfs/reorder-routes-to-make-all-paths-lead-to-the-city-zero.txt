@@ -1,0 +1,29 @@
+# 1466. Reorder Routes to Make All Paths Lead to the City Zero
+
+from collections import defaultdict
+
+class Solution:
+    def minReorder(self, n: int, connections: list[list[int]]) -> int:
+        adj = defaultdict(list)
+        for u, v in connections:
+            # Original edge: moving u -> v costs 1 flip to point toward 0
+            adj[u].append((v, 1))
+            # Artificial edge: moving v -> u costs 0 flips
+            adj[v].append((u, 0))
+        
+        visited = [False] * n
+        self.total_flips = 0
+        
+        def dfs(curr):
+            visited[curr] = True
+            for neighbor, cost in adj[curr]:
+                if not visited[neighbor]:
+                    self.total_flips += cost
+                    dfs(neighbor)
+        
+        dfs(0)
+        return self.total_flips
+
+RT -> O(V + E)
+Space -> O(V + E)
+
