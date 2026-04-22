@@ -47,6 +47,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+44
 43
 42
 41
