@@ -1,0 +1,32 @@
+# 2542. Maximum Subsequence Score
+
+import heapq
+class Solution:
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        pairs = [(a,b) for a,b in zip(nums1, nums2)]
+        pairs.sort(key=lambda x: x[1], reverse=True)  # desc sort by second elt
+
+        res = 0
+        current_sum = 0
+        min_heap = []
+
+        for n1, n2 in pairs:
+            # put the sum num on the heap
+            heapq.heappush(min_heap, n1)
+            current_sum += n1
+
+            # remove a number is the heap is too large
+            if len(min_heap) > k:
+                removed = heapq.heappop(min_heap)
+                current_sum -= removed
+            
+            # if the heap is at the max length, calculate the score
+            if len(min_heap) == k:
+                res = max(res, current_sum * n2)
+        
+        return res
+
+Time: $O(n \log n)$ due to sorting, and $O(n \log k)$ for heap operations.
+
+Space: $O(n)$ to store the pairs and $O(k)$ for the heap.
+
