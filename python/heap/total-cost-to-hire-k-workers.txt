@@ -1,0 +1,38 @@
+# 2462. Total Cost to Hire K Workers
+
+import heapq
+
+class Solution:
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        # Pointers to track the next available worker for each pool
+        left = candidates
+        right = max(candidates, len(costs) - candidates) - 1
+        
+        # Initial heaps
+        head_heap = costs[:left]
+        tail_heap = costs[right + 1:]
+        heapq.heapify(head_heap)
+        heapq.heapify(tail_heap)
+        
+        total_cost = 0
+        
+        for _ in range(k):
+            # Check which heap has the smaller minimum
+            # If equal, problem rules state we pick from head_heap
+            if not tail_heap or (head_heap and head_heap[0] <= tail_heap[0]):
+                total_cost += heapq.heappop(head_heap)
+                # If there are workers left in the middle, move one to this heap
+                if left <= right:
+                    heapq.heappush(head_heap, costs[left])
+                    left += 1
+            else:
+                total_cost += heapq.heappop(tail_heap)
+                if left <= right:
+                    heapq.heappush(tail_heap, costs[right])
+                    right -= 1
+                    
+        return total_cost
+
+RT -> O((k+candidates)log candidates)
+Space -> O(candidates)
+
