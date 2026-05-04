@@ -1,0 +1,22 @@
+# 374. Guess Number Higher or Lower
+
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        low = 1
+        high = n
+        
+        while low <= high:
+            # Prevent potential overflow in other languages, 
+            # though Python handles large integers automatically.
+            mid = low + (high - low) // 2
+            res = guess(mid)
+            
+            if res == 0:
+                return mid
+            elif res < 0:
+                # The picked number is lower than mid
+                high = mid - 1
+            else:
+                # The picked number is higher than mid
+                low = mid + 1
+
