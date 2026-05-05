@@ -1,0 +1,24 @@
+# 2300. Successful Pairs of Spells and Potions
+
+import math
+from bisect import bisect_left
+
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        m = len(potions)
+        result = []
+
+        for s in spells:
+            target = math.ceil(success / s)
+
+            # Binary search for the insertion point
+            idx = bisect_left(potions, target)
+
+            # All potions from idx to m-1 are successful
+            result.append(m - idx)
+        return result
+
+RT -> O(mlogm + n logm)
+space -> O(1)
+
