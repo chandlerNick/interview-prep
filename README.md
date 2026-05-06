@@ -47,6 +47,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+53
 52
 51
 50
