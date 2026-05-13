@@ -1,0 +1,11 @@
+# 1731. The Number of Employees Which Report to Each Employee
+
+# Write your MySQL query statement below
+SELECT employee_id, name, t.rc AS reports_count, t.aa AS average_age
+FROM Employees JOIN (SELECT e.reports_to, ROUND(AVG(e.age)) AS aa, COUNT(e.employee_id) AS rc
+                    FROM Employees e
+                    GROUP BY reports_to) t
+    ON employee_id = t.reports_to
+ORDER BY employee_id
+
+

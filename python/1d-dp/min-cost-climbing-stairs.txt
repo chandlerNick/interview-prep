@@ -1,0 +1,13 @@
+# 746. Min Cost Climbing Stairs
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        n = len(cost)
+        dp = [0] * (n+1)  # min cost to climb to top starting from i
+        dp[-1] = 0  # top of staircase is send, no cost
+        dp[-2] = cost[-1]
+        for i in reversed(range(n-1)):
+            dp[i] = cost[i] + min(dp[i+1], dp[i+2])
+        
+        return min(dp[0], dp[1])
+
