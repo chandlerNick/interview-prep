@@ -1,0 +1,28 @@
+# 1318. Minimum Flips to Make a OR b Equal to c
+
+class Solution:
+    def minFlips(self, a: int, b: int, c: int) -> int:
+        flip_count = 0
+        if (a == b == c): return flip_count
+
+        for i in range(32):
+            a_bit = a & 1
+            b_bit = b & 1
+            c_bit = c & 1
+
+            if c_bit == 1:
+                if not (a_bit + b_bit):  # only flip if a and b are 0
+                    flip_count += 1
+            else:  # c_bit == 0
+                flip_count += (a_bit + b_bit)
+
+            a = a >> 1
+            b = b >> 1
+            c = c >> 1
+        
+        return flip_count
+        
+O(1)
+
+
+
