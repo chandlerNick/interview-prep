@@ -1,0 +1,24 @@
+# 1321. Restaurant Growth
+
+WITH DailyTotals AS (
+    -- Step 1: Aggregate daily revenue
+    SELECT visited_on, SUM(amount) AS daily_sum
+    FROM Customer
+    GROUP BY visited_on
+),
+WindowedTotals AS (
+    -- Step 2: Calculate rolling 7-day sum and window size
+    SELECT 
+        visited_on,
+        SUM(daily_sum) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS amount,
+        COUNT(visited_on) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS count_7d
+    FROM DailyTotals
+)
+-- Step 3: Filter for complete 7-day windows and calculate average
+SELECT 
+    visited_on, 
+    amount, 
+    ROUND(amount / 7.0, 2) AS average_amount
+FROM WindowedTotals
+WHERE count_7d = 7
+ORDER BY visited_on;

@@ -1,0 +1,57 @@
+# 208. Implement Trie (Prefix Tree)
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEndOfWord = False
+    
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+            curr = curr.children[char]
+        curr.isEndOfWord = True
+
+    def search(self, word: str) -> bool:
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return curr.isEndOfWord
+
+    def startsWith(self, prefix: str) -> bool:
+        curr = self.root
+        for char in prefix:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return True
+
+Time:
+
+L - length of word or prefix
+
+insert - O(L)
+Search - O(L)
+StartsWith - O(L)
+
+
+Space:
+
+insert - O(L)
+Search - O(1)
+StartsWith - O(1)
+
+
+Total Space:
+N - Number of words
+A - Alphabet size
+
+O(NxA)
