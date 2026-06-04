@@ -1,0 +1,132 @@
+# 1268. Search Suggestions System
+
+import heapq
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEndOfWord = False
+    
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+            curr = curr.children[char]
+        curr.isEndOfWord = True
+
+    def search(self, word: str) -> bool:
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return curr.isEndOfWord
+
+    def startsWith(self, prefix: str) -> bool:
+        curr = self.root
+        for char in prefix:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return True
+
+    def get_words_with_prefix(self, prefix: str) -> list[str]:
+        """
+        Time Complexity: $O(P + M)$, where $P$ is the length of the prefix and $M$ is the total number of characters in the subtree rooted at the prefix node.
+        Space Complexity: $O(H)$, where $H$ is the height of the trie (due to the recursion stack and backtracking list).
+        """
+        # 1. Navigate to the end of the prefix
+        curr = self.root
+        for char in prefix:
+            if char not in curr.children:
+                return []
+            curr = curr.children[char]
+        
+        # 2. DFS to collect all words from this node downward
+        res = []
+        
+        def dfs(node: TrieNode, current_word: list[str]):
+            if node.isEndOfWord:
+                res.append("".join(current_word))
+            
+            for char, next_node in node.children.items():
+                current_word.append(char)
+                dfs(next_node, current_word)
+                current_word.pop()  # backtrack
+        
+        # Start DFS with the prefix characters already in the tracker
+        dfs(curr, list(prefix))
+        return res
+
+# Autocomplete
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        trie = Trie()
+        for p in products:
+            trie.insert(p)
+
+        res = []
+        pre = ""
+        
+        for c in searchWord:
+            pre += c
+            words = trie.get_words_with_prefix(pre)
+            min_three = heapq.nsmallest(3, words)
+            res.append(min_three)
+        
+        return res
+        
+        
+
+Optimized:
+
+from typing import List
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        # Stores up to 3 lexicographically smallest words passing through this node
+        self.suggestions: List[str] = []
+
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        # 1. Sort upfront so words arrive at nodes in alphabetical order
+        products.sort()
+        
+        # 2. Build the Trie
+        root = TrieNode()
+        for product in products:
+            curr = root
+            for char in product:
+                if char not in curr.children:
+                    curr.children[char] = TrieNode()
+                curr = curr.children[char]
+                
+                # If we haven't found 3 suggestions yet, this word belongs here
+                if len(curr.suggestions) < 3:
+                    curr.suggestions.append(product)
+        
+        # 3. Query the Trie character by character
+        res = []
+        curr = root
+        disconnected = False  # Track if the prefix path breaks
+        
+        for char in searchWord:
+            if disconnected or char not in curr.children:
+                disconnected = True
+                res.append([])
+            else:
+                curr = curr.children[char]
+                res.append(curr.suggestions)
+                
+        return res
+
+RT -> O(NlgN L + M) - N=num_prods, M=len_search_word, L=len_prod
+Space -> O(NL)
+
