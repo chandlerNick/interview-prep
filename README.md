@@ -47,6 +47,7 @@ Write a short text answering the following:
 
 ## Day Counter:
 
+72
 71
 70
 69

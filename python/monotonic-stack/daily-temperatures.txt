@@ -1,0 +1,18 @@
+# 739. Daily Temperatures
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        ans = [0] * n
+        stack = []  # store indices
+
+        for i in range(n):
+            # Maintain monotonic decreasing order (value)
+            # If current elet is greater than the stack's top, pop it
+            while stack and temperatures[stack[-1]] < temperatures[i]:
+                pop_index = stack.pop()
+                ans[pop_index] = i - pop_index
+            stack.append(i)
+        
+        return ans
+
