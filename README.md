@@ -6,7 +6,7 @@ Shoot for 1 DS/A and 1-2 pandas/SQL problems per day.
 
 - [pandas I](https://leetcode.com/studyplan/introduction-to-pandas/) DONE
 - [pandas II](https://leetcode.com/studyplan/30-days-of-pandas/) DONE
-- [SQL I](https://leetcode.com/studyplan/top-sql-50/)
+- [SQL I](https://leetcode.com/studyplan/top-sql-50/) DONE
 - [Leetcode 75](https://leetcode.com/studyplan/leetcode-75/) DONE
 - [DS-Interview](https://datalemur.com/questions)
 - [DS-Interview-Prep-Codecademy](https://www.codecademy.com/learn/paths/intprep-ds-ds-interview-prep)
@@ -14,6 +14,7 @@ Shoot for 1 DS/A and 1-2 pandas/SQL problems per day.
 
 ## Day Counter:
 
+74
 73
 72
 71
